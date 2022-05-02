@@ -2,7 +2,6 @@ package com.githukudenis.androidtesting.data.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import dagger.internal.DaggerGenerated
 
 @Dao
 interface ShoppingDao {
@@ -18,5 +17,5 @@ interface ShoppingDao {
 
     @Query("SELECT sum(price * amount) FROM shopping_item_table")
     fun observeTotalPrice(): LiveData<Float>
-    
+
 }

@@ -8,7 +8,6 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
