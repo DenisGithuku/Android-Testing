@@ -1,4 +1,4 @@
-package com.githukudenis.androidtesting
+package com.githukudenis.androidtesting.other
 
 object Constants {
     const val BASE_URL: String = "https://pixabay.com"

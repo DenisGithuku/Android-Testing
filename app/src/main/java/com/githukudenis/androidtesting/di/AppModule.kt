@@ -2,7 +2,7 @@ package com.githukudenis.androidtesting.di
 
 import android.content.Context
 import androidx.room.Room
-import com.githukudenis.androidtesting.Constants
+import com.githukudenis.androidtesting.other.Constants
 import com.githukudenis.androidtesting.data.local.ShoppingDao
 import com.githukudenis.androidtesting.data.local.ShoppingItemDatabase
 import com.githukudenis.androidtesting.data.remote.PixaBayApi

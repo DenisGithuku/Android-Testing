@@ -1,4 +1,4 @@
-package com.githukudenis.androidtesting
+package com.githukudenis.androidtesting.util
 
 import com.githukudenis.androidtesting.util.RegistrationUtil
 import com.google.common.truth.Truth.assertThat
