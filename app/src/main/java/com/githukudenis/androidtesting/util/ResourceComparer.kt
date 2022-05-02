@@ -1,4 +1,4 @@
-package com.githukudenis.androidtesting
+package com.githukudenis.androidtesting.util
 
 import android.content.Context
 

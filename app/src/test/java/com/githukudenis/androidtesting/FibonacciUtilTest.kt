@@ -1,6 +1,7 @@
 package com.githukudenis.androidtesting
 
 
+import com.githukudenis.androidtesting.util.FibonacciUtil
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 

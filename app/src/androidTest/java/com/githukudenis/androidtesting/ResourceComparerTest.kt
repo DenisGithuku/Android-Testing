@@ -2,6 +2,7 @@ package com.githukudenis.androidtesting
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
+import com.githukudenis.androidtesting.util.ResourceComparer
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test

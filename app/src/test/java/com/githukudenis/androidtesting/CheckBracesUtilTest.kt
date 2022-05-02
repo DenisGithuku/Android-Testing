@@ -1,5 +1,6 @@
 package com.githukudenis.androidtesting
 
+import com.githukudenis.androidtesting.util.CheckBracesUtil
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
