@@ -1,11 +1,10 @@
 package com.githukudenis.androidtesting.data.local
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -13,28 +12,28 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
+import javax.inject.Inject
+import javax.inject.Named
 
 @OptIn(ExperimentalCoroutinesApi::class)
-@RunWith(AndroidJUnit4::class)
+@HiltAndroidTest
 @SmallTest
 class ShoppingDaoTest {
 
-    private lateinit var shoppingItemDatabase: ShoppingItemDatabase
+    @Inject
+    @Named("test_db")
+    lateinit var shoppingItemDatabase: ShoppingItemDatabase
     private lateinit var shoppingDao: ShoppingDao
 
     @get:Rule
-    var hiltExecutorRule =  InstantTaskExecutorRule()
+    var hiltRule = HiltAndroidRule(this)
+
+    @get:Rule
+    var hiltExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun setup() {
-        shoppingItemDatabase = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            ShoppingItemDatabase::class.java
-        )
-            .allowMainThreadQueries()
-            .build()
-
+        hiltRule.inject()
         shoppingDao = shoppingItemDatabase.shoppingItemDao()
     }
 
@@ -45,15 +44,18 @@ class ShoppingDaoTest {
 
     @Test
     fun insertShoppingItemTest() = runTest {
-        val shoppingItem = ShoppingItem( id =0, name = "banana", amount = 4, price = 45.6f, imageUrl = "")
+        val shoppingItem =
+            ShoppingItem(id = 0, name = "banana", amount = 4, price = 45.6f, imageUrl = "")
         shoppingDao.insertShoppingItem(shoppingItem)
 
         val shoppingItems = shoppingDao.observeShoppingItems().getOrAwaitValue()
         assertThat(shoppingItems).contains(shoppingItem)
     }
+
     @Test
     fun deleteShoppingItemTest() = runTest {
-        val shoppingItem = ShoppingItem( id =0, name = "banana", amount = 4, price = 45.6f, imageUrl = "")
+        val shoppingItem =
+            ShoppingItem(id = 0, name = "banana", amount = 4, price = 45.6f, imageUrl = "")
         shoppingDao.insertShoppingItem(shoppingItem)
         shoppingDao.deleteShoppingItem(shoppingItem)
         val shoppingItems = shoppingDao.observeShoppingItems().getOrAwaitValue()
@@ -62,9 +64,12 @@ class ShoppingDaoTest {
 
     @Test
     fun observeTotalPriceTest() = runTest {
-        val shoppingItem1 = ShoppingItem(id = 0, name = "cake", amount = 2, price = 34.5f, imageUrl = "")
-        val shoppingItem2 = ShoppingItem(id = 1, name = "banana", amount = 4, price = 23.5f, imageUrl = "")
-        val shoppingItem3 = ShoppingItem(id = 2, name = "rice", amount = 3, price = 14.5f, imageUrl = "")
+        val shoppingItem1 =
+            ShoppingItem(id = 0, name = "cake", amount = 2, price = 34.5f, imageUrl = "")
+        val shoppingItem2 =
+            ShoppingItem(id = 1, name = "banana", amount = 4, price = 23.5f, imageUrl = "")
+        val shoppingItem3 =
+            ShoppingItem(id = 2, name = "rice", amount = 3, price = 14.5f, imageUrl = "")
 
         shoppingDao.insertShoppingItem(shoppingItem1)
         shoppingDao.insertShoppingItem(shoppingItem2)
