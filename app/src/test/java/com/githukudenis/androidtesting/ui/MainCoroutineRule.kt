@@ -1,4 +1,4 @@
-package com.githukudenis.androidtesting.util
+package com.githukudenis.androidtesting.ui
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -9,8 +9,8 @@ import org.junit.runner.Description
 
 @ExperimentalCoroutinesApi
 class MainCoroutineRule(
-    private val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
-): TestWatcher(), TestCoroutineScope by TestCoroutineScope(dispatcher) {
+    private val dispatcher: TestDispatcher = UnconfinedTestDispatcher()
+): TestWatcher(), TestCoroutineScope by createTestCoroutineScope(TestCoroutineDispatcher() + TestCoroutineExceptionHandler() + dispatcher) {
 
 
     override fun starting(description: Description?) {

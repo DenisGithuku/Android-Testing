@@ -4,10 +4,12 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.githukudenis.androidtesting.other.Constants
 import com.githukudenis.androidtesting.other.Status
 import com.githukudenis.androidtesting.repository.FakeShoppingRepository
-import com.githukudenis.androidtesting.util.MainCoroutineRule
 import com.google.common.truth.Truth.assertThat
 import getOrAwaitValueTest
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -21,12 +23,14 @@ class ShoppingViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
-
     @Before
     fun setup() {
         shoppingViewModel = ShoppingViewModel(FakeShoppingRepository())
+
+        /**
+         * tune the coroutine to run on the standard dispatcher on the main thread
+         */
+        Dispatchers.setMain(StandardTestDispatcher())
     }
 
     @After
