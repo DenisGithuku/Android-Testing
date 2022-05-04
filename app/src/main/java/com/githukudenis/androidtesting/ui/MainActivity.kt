@@ -1,4 +1,4 @@
-package com.githukudenis.androidtesting
+package com.githukudenis.androidtesting.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
