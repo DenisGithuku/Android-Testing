@@ -2,6 +2,8 @@ package com.githukudenis.androidtesting.data.local
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
+import com.githukudenis.androidtesting.launchFragmentInHiltContainer
+import com.githukudenis.androidtesting.ui.ShoppingFragment
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
