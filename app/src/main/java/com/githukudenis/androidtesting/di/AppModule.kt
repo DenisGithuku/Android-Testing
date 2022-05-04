@@ -2,10 +2,12 @@ package com.githukudenis.androidtesting.di
 
 import android.content.Context
 import androidx.room.Room
-import com.githukudenis.androidtesting.other.Constants
 import com.githukudenis.androidtesting.data.local.ShoppingDao
 import com.githukudenis.androidtesting.data.local.ShoppingItemDatabase
 import com.githukudenis.androidtesting.data.remote.PixaBayApi
+import com.githukudenis.androidtesting.other.Constants
+import com.githukudenis.androidtesting.repository.DefaultShoppingRepository
+import com.githukudenis.androidtesting.repository.ShoppingRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,10 +41,18 @@ object AppModule {
         .build()
         .create(PixaBayApi::class.java)
 
-
     @Singleton
     @Provides
     fun provideShoppingItemDao(
         database: ShoppingItemDatabase
     ): ShoppingDao = database.shoppingItemDao()
+
+    @Singleton
+    @Provides
+    fun provideShoppingRepository(
+        shoppingDao: ShoppingDao,
+        pixaBayApi: PixaBayApi
+    ): ShoppingRepository {
+        return DefaultShoppingRepository(shoppingDao, pixaBayApi)
+    }
 }
